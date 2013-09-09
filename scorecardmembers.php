@@ -81,6 +81,10 @@ class  HAScoreSettingsPage
             
             <?php
             
+            if(isset($_POST) && !empty($_POST)){
+              HAScoreMembers::updateMemberScores();
+            }
+            
             if(!empty($this->options['scorecard_api_key'])) :
               
               if(@ !file_get_contents('http://heritageactionscorecard.com/api/scorecard/members/congress/113/format/json/apikey/'. $this->options['scorecard_api_key'] .'/')):              
