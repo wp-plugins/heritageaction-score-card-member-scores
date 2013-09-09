@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Score Card Members
+Plugin Name: HeritageAction Score Card Member Score
 Plugin URI: http://www.heritageaction.com
 Description: HeritageAction Score Card Members of Congress
 Version: 1.0
