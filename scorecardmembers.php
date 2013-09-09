@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: HeritageAction Score Card Member Score
+Plugin Name: HeritageAction Scorecard Member Score
 Plugin URI: http://www.heritageaction.com
-Description: HeritageAction Score Card Members of Congress
+Description: HeritageAction Scorecard Members of Congress
 Version: 1.0
 Author: Heritage Action for America
 Author URI: http://heritageaction.com
@@ -59,8 +59,8 @@ class  HAScoreSettingsPage
     {
         // This page will be under "Settings"
         add_options_page(
-            'HeritageAction Score Card Members', 
-            'Score Card', 
+            'HeritageAction Scorecard Members', 
+            'Scorecard', 
             'manage_options', 
             'scorecard-setting-admin', 
             array( $this, 'create_admin_page' )
@@ -77,7 +77,7 @@ class  HAScoreSettingsPage
         ?>
         <div class="wrap">
             <?php screen_icon(); ?>
-            <h2>HeritageAction Score Card</h2>
+            <h2>HeritageAction Scorecard</h2>
             
             <?php            
             if(!empty($this->options['scorecard_api_key'])) :
@@ -118,14 +118,14 @@ class  HAScoreSettingsPage
 
         add_settings_section(
             'setting_section_id', // ID
-            'Score Card Member Settings', // Title
+            'Scorecard Member Settings', // Title
             array( $this, 'print_section_info' ), // Callback
             'scorecard-setting-admin' // Page
         );  
 
         add_settings_field(
             'scorecard_api_key', // ID
-            'Score Card API Key', // Title 
+            'Scorecard API Key', // Title 
             array( $this, 'scorecard_api_key_callback' ), // Callback
             'scorecard-setting-admin', // Page
             'setting_section_id' // Section           
@@ -639,7 +639,7 @@ class HAScoreMembers{
                        '</span>'.        
                        '<span class="score-bubble-headline">'.
                           'Heritage Action'.
-                          '<span class="bubble-title">Score Card</span>'.
+                          '<span class="bubble-title">Scorecard</span>'.
                        '</span>'.
                        '<span class="score-bubble-content">'.
                            '<span class="score-bubble-image">'.
@@ -652,7 +652,7 @@ class HAScoreMembers{
                            '<span class="score-bubble-separator"></span>'.
                        '</span>'.
                        '<span class="score-bubble-button-wrap">'.
-                         '<a href="http://heritageactionscorecard.com/members/member/'.$scorecard_member_data->congID.'" target="_blank" class="btn rounded gradient medium-blue-gradient">See Full Score Card</a>'.
+                         '<a href="http://heritageactionscorecard.com/members/member/'.$scorecard_member_data->congID.'" target="_blank" class="btn rounded gradient medium-blue-gradient">See Full Scorecard</a>'.
                        '</span>'.               
                    '</span>'.
                    '<span class="score-bubble-score-value">'.$scorecard_member_data->score.'%</span>'.
