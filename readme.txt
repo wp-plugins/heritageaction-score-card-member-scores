@@ -12,14 +12,11 @@ Highlight Members of Congress with their HeritageAction Score Card score
 
 == Description ==
 
-The HeritageAction Scorecard enhanced Member of Congress bubble effect is essentially a replacement of the member of congress' name with inline markup that indicates the name can be interacted with, and a hidden bubble of information that is displayed when hovered over by the user.
-
-This process is first accomplished by allowing editors of the content on the site to use a shortcode instead of a member's name to easily designate when to use these bubbles and to ensure consistent formatting is observed. A button is added to the WordPress editor to simplify the task of referencing Members of Congress when writing copy for the site.
-
-Once content contains the appropriate shortcodes, a content filter is applied that replaces the shortcode with the appropriate markup. The markup rendered is updated when the user hovers over the name to get the current score at the time of the page load.
+  The HeritageAction Scorecard enhanced Member of Congress bubble effect is essentially a replacement of the member of congress' name with inline markup that indicates the name can be interacted with, and a hidden bubble of information that is displayed when hovered over by the user.
+  This process is first accomplished by allowing editors of the content on the site to use a shortcode instead of a member's name to easily designate when to use these bubbles and to ensure consistent formatting is observed. A button is added to the WordPress editor to simplify the task of referencing Members of Congress when writing copy for the site.
+  Once content contains the appropriate shortcodes, a content filter is applied that replaces the shortcode with the appropriate markup. The markup rendered is updated when the user hovers over the name to get the current score at the time of the page load.
 
 An API key is required for interaction with the Score Card. You can obtain one here: http://heritageaction.com/request-score-card-api-key/
-
 
 == Installation ==
 
