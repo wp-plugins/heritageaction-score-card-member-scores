@@ -79,12 +79,7 @@ class  HAScoreSettingsPage
             <?php screen_icon(); ?>
             <h2>HeritageAction Score Card</h2>
             
-            <?php
-            
-            if(isset($_POST) && !empty($_POST)){
-              HAScoreMembers::updateMemberScores();
-            }
-            
+            <?php            
             if(!empty($this->options['scorecard_api_key'])) :
               
               if(@ !file_get_contents('http://heritageactionscorecard.com/api/scorecard/members/congress/113/format/json/apikey/'. $this->options['scorecard_api_key'] .'/')):              
@@ -107,6 +102,7 @@ class  HAScoreSettingsPage
             </form>
         </div>
         <?php
+        HAScoreMembers::updateMemberScores();
     }
 
     /**
@@ -632,7 +628,7 @@ class HAScoreMembers{
 
      
      $scorecard_member_data = $member;
-
+     $member_image = str_replace('http://www.govtrack.us/data/photos/','',$scorecard_member_data->image_path);
 
      $output = "<span class='mc-bubble-wrap mc-$mcid' data-mcid='$mcid' data-score='$scorecard_member_data->score'>" . 
                  $title . $name .   
@@ -647,7 +643,7 @@ class HAScoreMembers{
                        '</span>'.
                        '<span class="score-bubble-content">'.
                            '<span class="score-bubble-image">'.
-                             '<img src="http://heritageactionscorecard.com/admin/memImgs/'.$scorecard_member_data->image_path.'">'.
+                             '<img src="http://heritageactionscorecard.com/admin/memImgs/'.$member_image.'">'.
                            '</span>'.
                            '<span class="score-bubble-info">'.
                              '<span class="score-bubble-member-name">'.$scorecard_member_data->title.' '.$scorecard_member_data->fName.' '.$scorecard_member_data->lName.'</span>'.
