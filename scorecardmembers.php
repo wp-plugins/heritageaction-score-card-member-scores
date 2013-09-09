@@ -646,7 +646,7 @@ class HAScoreMembers{
                              '<img src="http://heritageactionscorecard.com/admin/memImgs/'.$member_image.'">'.
                            '</span>'.
                            '<span class="score-bubble-info">'.
-                             '<span class="score-bubble-member-name">'.$scorecard_member_data->title.' '.$scorecard_member_data->fName.' '.$scorecard_member_data->lName.'</span>'.
+                             '<span class="score-bubble-member-name">'.$title.' '.$scorecard_member_data->fName.' '.$scorecard_member_data->lName.'</span>'.
                               '<span class="score-bubble-member-score"><img src="'.HASCORE_MEMBER_URL.'/images/loading.gif" alt="'.$scorecard_member_data->score.'%"></span>'.
                            '</span>'.
                            '<span class="score-bubble-separator"></span>'.
