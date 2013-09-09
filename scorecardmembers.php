@@ -9,7 +9,7 @@ Author URI: http://heritageaction.com
 
 */
 
-
+// bump
 define("WPCURL", HAScoreMembers::getWpContentUrl());
 define("WPURL", HAScoreMembers::getWpUrl());
 define("HASCORE_MEMBER_URL", WPCURL . '/plugins/heritageaction-scorecard-members');
