@@ -1,4 +1,4 @@
-=== HeritageAction Score Card Member Score ===
+=== HeritageAction Score Card: Member Score ===
 Contributors: heritageaction,
 Donate link: https://heritageaction.com/donate
 Tags: heritage action, politics, congress
@@ -24,9 +24,9 @@ An API key is required for interaction with the Score Card. You can obtain one h
 
 To  Install HeritageAction Score Card Member Score
 
-1. Download the heritageaction-scorecard-members.zip file 
-2. Extract the zip file so that you have a folder called heritageaction-scorecard-members
-3. Upload the 'heritageaction-scorecard-members' folder to the `/wp-content/plugins/` directory
+1. Download the heritageaction-score-card-member-scores.zip file 
+2. Extract the zip file so that you have a folder called heritageaction-score-card-member-scores
+3. Upload the 'heritageaction-score-card-member-scores' folder to the `/wp-content/plugins/` directory
 4. Activate the plugin through the 'Plugins' menu in WordPress
 5. Configure your settings in the Score Card Settings panel
 
