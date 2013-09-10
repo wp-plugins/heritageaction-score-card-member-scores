@@ -3,7 +3,7 @@
 Plugin Name: HeritageAction Scorecard Member Score
 Plugin URI: http://www.heritageaction.com
 Description: HeritageAction Scorecard Members of Congress
-Version: 1.0
+Version: 1.0.1
 Author: Heritage Action for America
 Author URI: http://heritageaction.com
 
@@ -305,7 +305,7 @@ class HAScoreMembers{
         font-size:1.2em;
         display:inline-block;
 		  }
-		  .score-bubble-member-score, .score-bubble-member-score-speaker{
+		  .score-bubble-member-score{
 		    font-size:5em;
 		    width:100%;
 		    font-family: HelveticaNeue-CondensedBold, 'Open Sans Condensed', Arial, sans-serif;
@@ -335,8 +335,12 @@ class HAScoreMembers{
     <script type="text/javascript">
       (function($){
         $(document).ready(function(){
-          $(".mc-bubble-wrap").each(function(){
-		      
+          
+          $("body").click(function(e){
+            $(".mc-scorecard-bubble-wrapper").hide();
+          })
+                    
+          $(".mc-bubble-wrap").each(function(){		        
 		      
 		        $(".mc-scorecard-bubble-wrapper").on('mouseleave',function(event){
   		        $(this).hide();
