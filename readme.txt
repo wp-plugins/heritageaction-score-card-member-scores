@@ -50,6 +50,10 @@ We are not able to provide anything other than community based support for Herit
 
 == Changelog ==
 
+= 1.0.1 =
+* Added support for Speaker of the House score of "n/a" rather than 0%
+* Hide popup bubbles when body is clicked
+
 = 1.0 =
 * Initial Deployment
 
