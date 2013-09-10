@@ -99,7 +99,7 @@ class  HAScoreSettingsPage
                 do_settings_sections( 'scorecard-setting-admin' );
                 submit_button(); 
             ?>
-            </form>
+            </form>           
         </div>
         <?php
         HAScoreMembers::updateMemberScores();
@@ -305,7 +305,7 @@ class HAScoreMembers{
         font-size:1.2em;
         display:inline-block;
 		  }
-		  .score-bubble-member-score{
+		  .score-bubble-member-score, .score-bubble-member-score-speaker{
 		    font-size:5em;
 		    width:100%;
 		    font-family: HelveticaNeue-CondensedBold, 'Open Sans Condensed', Arial, sans-serif;
@@ -364,8 +364,15 @@ class HAScoreMembers{
                          items.push(val);
                      });
                      //console.log(items[0]);
-                     $('.score-bubble-member-score', $(".mc-"+mcid)).html(items[0].score + "%");
-                     $('.score-bubble-score-value', $(".mc-"+mcid)).html(items[0].score + "%");
+                     if(items[0].is_speaker != 1){
+                       $('.score-bubble-member-score', $(".mc-"+mcid)).html(items[0].score + "%");
+                       $('.score-bubble-score-value', $(".mc-"+mcid)).html(items[0].score + "%");
+                     }
+                     else{
+                       $('.score-bubble-member-score', $(".mc-"+mcid)).html("N/A");
+                       $('.score-bubble-score-value', $(".mc-"+mcid)).html("N/A");
+                     }
+                     
                      
                      $(".mc-"+mcid).addClass('mc-bubble-loaded');
                      
@@ -441,6 +448,7 @@ class HAScoreMembers{
   }
   
   public static function updateMemberScores(){
+    $score_members = array();
     $hascore_member_options = get_option( 'hascore_member_options' );
     $members_data = json_decode(file_get_contents('http://heritageactionscorecard.com/api/scorecard/members/congress/113/format/json/apikey/'. $hascore_member_options["scorecard_api_key"] .'/'));
     foreach($members_data as $member){
@@ -629,7 +637,8 @@ class HAScoreMembers{
      
      $scorecard_member_data = $member;
      $member_image = str_replace('http://www.govtrack.us/data/photos/','',$scorecard_member_data->image_path);
-
+     $score_value = ($scorecard_member_data->is_speaker == '1') ? 'N/A' : $scorecard_member_data->score .'%';
+     
      $output = "<span class='mc-bubble-wrap mc-$mcid' data-mcid='$mcid' data-score='$scorecard_member_data->score'>" . 
                  $title . $name .   
                  '<span class="mc-bubble-score">'.
@@ -647,7 +656,7 @@ class HAScoreMembers{
                            '</span>'.
                            '<span class="score-bubble-info">'.
                              '<span class="score-bubble-member-name">'.$title.' '.$scorecard_member_data->fName.' '.$scorecard_member_data->lName.'</span>'.
-                              '<span class="score-bubble-member-score"><img src="'.HASCORE_MEMBER_URL.'/images/loading.gif" alt="'.$scorecard_member_data->score.'%"></span>'.
+                              '<span class="score-bubble-member-score"><img src="'.HASCORE_MEMBER_URL.'/images/loading.gif" alt="'.$score_value.'"></span>'.                            
                            '</span>'.
                            '<span class="score-bubble-separator"></span>'.
                        '</span>'.
@@ -655,7 +664,7 @@ class HAScoreMembers{
                          '<a href="http://heritageactionscorecard.com/members/member/'.$scorecard_member_data->congID.'" target="_blank" class="btn rounded gradient medium-blue-gradient">See Full Scorecard</a>'.
                        '</span>'.               
                    '</span>'.
-                   '<span class="score-bubble-score-value">'.$scorecard_member_data->score.'%</span>'.
+                   '<span class="score-bubble-score-value">'.$score_value.'</span>'.
                  '</span>'.
                '</span>';      
 
