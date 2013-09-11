@@ -3,7 +3,7 @@
 Plugin Name: HeritageAction Scorecard Member Score
 Plugin URI: http://wordpress.org/plugins/heritageaction-score-card-member-scores
 Description: HeritageAction Scorecard Members of Congress
-Version: 1.0.1
+Version: 1.0.2
 Author: Heritage Action for America
 Author URI: http://heritageaction.com
 
