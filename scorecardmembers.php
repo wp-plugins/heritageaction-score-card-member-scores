@@ -3,7 +3,7 @@
 Plugin Name: HeritageAction Scorecard Member Score
 Plugin URI: http://wordpress.org/plugins/heritageaction-score-card-member-scores
 Description: HeritageAction Scorecard Members of Congress
-Version: 1.0.2
+Version: 1.0.1
 Author: Heritage Action for America
 Author URI: http://heritageaction.com
 
@@ -265,7 +265,7 @@ class HAScoreMembers{
         font-family: HelveticaNeue-CondensedBold, 'Open Sans Condensed', Arial, sans-serif;
         font-size:2em;
         line-height:1.2em;
-
+        width:100%;
         padding:0 0 5px 0;
 
         
@@ -283,6 +283,7 @@ class HAScoreMembers{
 		  .score-bubble-headline .bubble-title{
 		    font-size:1.4em;
 		    display:inline-block;
+		    width:100%;
 		  }
 		  
 		  .score-bubble-image{
@@ -328,9 +329,47 @@ class HAScoreMembers{
 		  }
 		  
 		  .score-bubble-button-wrap .btn{
-		    text-decoration:none !important;
+		    width: auto;
+        height: 90%;
+        padding: .7em 1em;
+        text-align: center;
+        font-family: Georgia, serif;
+        text-transform:uppercase;
+        
+		    text-decoration:none !important;		    
 		    font-size:1.3em;
+		    text-shadow: 1px 0 5px rgba(0,0,0,0.35);
+		    -webkit-border-radius: 37px;
+        -moz-border-radius: 37px;
+        border-radius: 37px;
+        
+        background-color: #43b2ec;
+        color: white;
+        background-image: -ms-linear-gradient(top, #43b2ec, #1d61d7);
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#43b2ec), to(#1d61d7));
+        background-image: -webkit-linear-gradient(top, #43b2ec, #1d61d7);
+        background-image: -o-linear-gradient(top, #43b2ec, #1d61d7);
+        background-image: -moz-linear-gradient(top, #43b2ec, #1d61d7);
+        background-image: linear-gradient(top, #43b2ec, #1d61d7);
+        background-repeat: repeat-x;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#43b2ec', endColorstr='#1d61d7', GradientType=0);
 		  }
+		  
+		  .score-bubble-button-wrap .btn:hover{
+  		  
+        
+        background-color: #43b2ec;
+        color: white;
+        background-image: -ms-linear-gradient(top, #179ee5, #11387d);
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#179ee5), to(#11387d));
+        background-image: -webkit-linear-gradient(top, #179ee5, #11387d);
+        background-image: -o-linear-gradient(top, #179ee5, #11387d);
+        background-image: -moz-linear-gradient(top, #179ee5, #11387d);
+        background-image: linear-gradient(top, #179ee5, #11387d);
+        background-repeat: repeat-x;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#179ee5', endColorstr='#11387d', GradientType=0);
+        
+      }
     </style>
     <script type="text/javascript">
       (function($){
@@ -701,7 +740,7 @@ class HAScoreMembers{
                        '</span>'.
                        '<span class="score-bubble-content">'.
                            '<span class="score-bubble-image">'.
-                             '<img src="http://heritageactionscorecard.com/admin/memImgs/'.$member_image.'">'.
+                             '<img src="http://heritageactionscorecard.com/admin/memImgs/'.$member_image.'" width="105">'.
                            '</span>'.
                            '<span class="score-bubble-info">'.
                              '<span class="score-bubble-member-name">'.$title.' '.$scorecard_member_data->fName.' '.$scorecard_member_data->lName.'</span>'.
