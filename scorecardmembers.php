@@ -3,7 +3,7 @@
 Plugin Name: HeritageAction Scorecard Member Score
 Plugin URI: http://wordpress.org/plugins/heritageaction-score-card-member-scores
 Description: HeritageAction Scorecard Members of Congress
-Version: 1.0.1
+Version: 1.0.2
 Author: Heritage Action for America
 Author URI: http://heritageaction.com
 
@@ -137,6 +137,14 @@ class  HAScoreSettingsPage
             array( $this, 'enable_popup_callback' ), 
             'scorecard-setting-admin', 
             'setting_section_id'
+        );
+        
+        add_settings_field(
+            'custom_css', 
+            'Custom CSS', 
+            array( $this, 'custom_css_callback' ), 
+            'scorecard-setting-admin', 
+            'setting_section_id'
         );      
     }
 
@@ -182,6 +190,13 @@ class  HAScoreSettingsPage
     {
         echo (
             '<label for="enable_popup"><input type="checkbox" id="enable_popup" name="hascore_member_options[enable_popup]" value="1" ' . checked(1, $this->options['enable_popup'], false) . ' /> Enable Popup boxes for Members of Congress</label>'
+        );
+    }
+    
+    public function custom_css_callback()
+    {
+        echo (
+            '<textarea id="custom_css" name="hascore_member_options[custom_css]" cols="25" rows="4">'.$this->options['custom_css'].'</textarea>'
         );
     }
 }
@@ -370,6 +385,9 @@ class HAScoreMembers{
         filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#179ee5', endColorstr='#11387d', GradientType=0);
         
       }
+      
+      <?php echo $hascore_member_options['custom_css']; ?>
+      
     </style>
     <script type="text/javascript">
       (function($){
