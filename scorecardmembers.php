@@ -80,12 +80,12 @@ class  HAScoreSettingsPage
             <h2>HeritageAction Scorecard</h2>
             
             <?php            
-            if(!empty($this->options['scorecard_api_key'])) :
-              
-              if(@ !file_get_contents('http://heritageactionscorecard.com/api/scorecard/members/congress/113/format/json/apikey/'. $this->options['scorecard_api_key'] .'/')):              
+            if(!empty($this->options['scorecard_api_key'])) :              
+              $member_data_test = HAScoreMembers::getMemberData();
+              if(!$member_data_test || !is_array($member_data_test)):              
             ?>
               <div id="setting-error-settings_updated" class="settings-error error"> 
-                <p><strong>Invalid API Key</strong></p></div>
+                <p><strong>An error has occurred: <?php echo $member_data_test; ?></strong></p></div>
               </div>     
             <?php 
                 $this->options['scorecard_api_key'] = '';
@@ -451,14 +451,46 @@ class HAScoreMembers{
     return $wpurl;
   }
   
-  public static function updateMemberScores(){
-    $score_members = array();
-    $hascore_member_options = get_option( 'hascore_member_options' );
-    $members_data = json_decode(file_get_contents('http://heritageactionscorecard.com/api/scorecard/members/congress/113/format/json/apikey/'. $hascore_member_options["scorecard_api_key"] .'/'));
-    foreach($members_data as $member){
-      $score_members[$member->congID] = $member;
+  public static function updateMemberScores($show_error=false){
+    $score_members = array();    
+    $members_data = HAScoreMembers::getMemberData();
+    if($members_data && is_array($members_data)){      
+      foreach($members_data as $member){
+        $score_members[$member->congID] = $member;
+      }
+      set_transient('scorecard_member_data', $score_members, 60*60*24);
+    }   
+    else{
+      delete_transient('scorecard_member_data');
+      if($show_error){
+        return $members_data->error;
+      }
+      
     }
-    set_transient('scorecard_member_data', $score_members, 60*60*24);
+  }
+  
+  public static function getMemberData(){
+    $output = false;
+    $hascore_member_options = get_option( 'hascore_member_options' );
+    $members_data = wp_remote_get( 'http://heritageactionscorecard.com/api/scorecard/members/congress/113/format/json/apikey/'. $hascore_member_options["scorecard_api_key"] .'/', array( 'timeout' => 120, 'httpversion' => '1.1' ) );
+    if($members_data){
+      $body = $members_data['body'];
+      if(json_decode($body)){
+        $json_data = json_decode($body);
+        if($json_data->error){
+          $output = $json_data->error;
+        }
+        else{
+          $output = $json_data;
+        }
+      }
+      else{
+        $output = $body;
+      }
+    }
+    
+    return $output;
+    
   }
  
  
@@ -574,12 +606,19 @@ class HAScoreMembers{
       <div id="select_mc_name" style="display:none;">
           <div class="wrap">
               <div>
+                <?php if(!get_transient('scorecard_member_data')): ?>
+                  <div style="padding:15px 15px 0 15px;color:#ff0000;" >
+                    Member data could not be captured due to an error: <?php echo HAScoreMembers::updateMemberScores(true); ?>
+                  </div>
+                <?php else:  ?>
+                  
                   <div style="padding:15px 15px 0 15px;">
                       <h3 style="color:#5A5A5A!important; font-family:Georgia,Times New Roman,Times,serif!important; font-size:1.8em!important; font-weight:normal!important;"><?php _e("Insert A Member of Congress", "congresspages"); ?></h3>
                       <span>
                           <?php _e("Select a Member of Congress into your post or page.", "congresspages"); ?>
                       </span>
-                  </div>                      
+                  </div>                     
+                  
                   <div style="padding:15px 15px 0 15px;">
                     <input type="text" name="members" id="member-autocomplete" placeholder="Type in a name...">
                   </div>
@@ -588,6 +627,7 @@ class HAScoreMembers{
                       <input type="button" class="button-primary" value="Insert Member of Congress" onclick="InsertMCName();"/>&nbsp;&nbsp;&nbsp;
                       <a class="button" style="color:#bbb;" href="#" onclick="tb_remove(); return false;"><?php _e("Cancel", "congresspages"); ?></a>
                   </div>
+                  <?php endif; ?>
               </div>
           </div>
       </div>
@@ -605,12 +645,17 @@ class HAScoreMembers{
        HAScoreMembers::updateMemberScores();
      }
      $member_data = get_transient('scorecard_member_data');
-
      extract( shortcode_atts( array(
-     		'chamber' => false,
-     		'mcid' => false,
-     		'name' => ''
-     	), $attrs, 'mc_name' ) );
+      		'chamber' => false,
+      		'mcid' => false,
+      		'name' => ''
+      	), $attrs, 'mc_name' ) );
+      	
+     if(!$member_data){
+       return $name;
+     }
+
+     
      	$title = "";
      	$member = false;
        switch($chamber){
