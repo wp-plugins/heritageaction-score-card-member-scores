@@ -50,6 +50,11 @@ We are not able to provide anything other than community based support for Herit
 
 == Changelog ==
 
+= 1.0.2 =
+* Improved remote API call with wp_remote_get
+* Added more compatible CSS for popup markup
+* Added custom CSS setting
+
 = 1.0.1 =
 * Added support for Speaker of the House score of "n/a" rather than 0%
 * Hide popup bubbles when body is clicked
