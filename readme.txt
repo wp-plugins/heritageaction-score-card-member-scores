@@ -37,6 +37,10 @@ To Uninstall HeritageAction Scorecard Member Score
 
 == Frequently Asked Questions ==
 
+= How can I correct CSS issues? = 
+
+Using the custom CSS field in the settings you can override the default CSS.
+
 = How can I get support? =
 
 We are not able to provide anything other than community based support for HeritageAction Scorecard Member Score.
