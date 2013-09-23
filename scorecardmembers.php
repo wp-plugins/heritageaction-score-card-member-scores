@@ -247,6 +247,7 @@ class HAScoreMembers{
 		    min-height:275px;
 		    z-index:3000;
 		    left:-15px !important;
+		    font-style:normal!important;
 		  }
 		  .score-bubble-triangle{
 		    position:absolute;
