@@ -4,7 +4,7 @@ Donate link: https://heritageaction.com/donate
 Tags: heritage action, politics, congress
 Requires at least: 3.0
 Tested up to: 3.6
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -57,7 +57,6 @@ We are not able to provide anything other than community based support for Herit
 = 1.0.3 =
 * Added Chamber Party average to bubbles
 * Improved API call efficiency 
-
 
 = 1.0.2 =
 * Improved remote API call with wp_remote_get
