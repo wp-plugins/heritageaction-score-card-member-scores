@@ -438,12 +438,12 @@ class HAScoreMembers{
                      if(items[0].is_speaker != 1){
                        $('.score-bubble-member-score', $(".mc-"+mcid)).html(items[0].score + "%");
                        $('.score-bubble-score-value', $(".mc-"+mcid)).html(items[0].score + "%");
-                       $('.score-bubble-party-chamber-score', $(".mc-"+mcid)).html(items[0].chamber_average + "%");
+                       $('.score-bubble-party-chamber-score', $(".mc-"+mcid)).html(items[0].party_average + "%");
                      }
                      else{
                        $('.score-bubble-member-score', $(".mc-"+mcid)).html("N/A");
                        $('.score-bubble-score-value', $(".mc-"+mcid)).html("N/A");
-                       $('.score-bubble-party-chamber-score', $(".mc-"+mcid)).html(items[0].chamber_average + "%");
+                       $('.score-bubble-party-chamber-score', $(".mc-"+mcid)).html(items[0].party_average + "%");
                      }
                      
                      
