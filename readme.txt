@@ -57,6 +57,7 @@ We are not able to provide anything other than community based support for Herit
 = 1.0.3 =
 * Added Chamber Party average to bubbles
 * Improved API call efficiency 
+* Updated bubble CSS to fix padding
 
 = 1.0.2 =
 * Improved remote API call with wp_remote_get
