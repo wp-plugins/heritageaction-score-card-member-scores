@@ -313,7 +313,7 @@ class HAScoreMembers{
 		    text-align:left;
 	    }
 		  
-		  .score-bubble-member-name{
+		  .score-bubble-member-name, .score-bubble-party-chamber{
 		    margin:5px 10px;
 		    font-family: HelveticaNeue-CondensedBold, 'Open Sans Condensed', Arial, sans-serif;
         font-weight: bold;
@@ -321,15 +321,24 @@ class HAScoreMembers{
         font-size:1.2em;
         display:inline-block;
 		  }
-		  .score-bubble-member-score{
+		  
+		  .score-bubble-member-score, .score-bubble-party-chamber-score{
 		    font-size:5em;
 		    width:100%;
 		    font-family: HelveticaNeue-CondensedBold, 'Open Sans Condensed', Arial, sans-serif;
-		    margin:15px 0 0 10px;
+		    margin:5px 0 0 10px;
 		    color:#143359;
 		    display:inline-block;
 		  }
-		  
+		  .score-bubble-party-chamber{
+		    color:#A6A6A6;
+		    margin:10px 0 0 10px;
+		  }
+		  .score-bubble-party-chamber-score{
+		    color:#A6A6A6;
+		    margin:5px 0 0 10px;
+		    font-size:3em;
+		  }		  
 		  .score-bubble-separator{
 		    clear:both;
 		  }
@@ -386,8 +395,9 @@ class HAScoreMembers{
         
       }
       
+      /* Custom CSS */
       <?php echo $hascore_member_options['custom_css']; ?>
-      
+      /* End Custom CSS */
     </style>
     <script type="text/javascript">
       (function($){
@@ -397,12 +407,12 @@ class HAScoreMembers{
             $(".mc-scorecard-bubble-wrapper").hide();
           })
                     
-          $(".mc-bubble-wrap").each(function(){		        
+        
 		      
 		        $(".mc-scorecard-bubble-wrapper").on('mouseleave',function(event){
   		        $(this).hide();
   		      })
-  		      $(".mc-bubble-wrap").mouseover(function(){
+  		      $(".mc-bubble-wrap").mouseenter(function(){
   		         $(".mc-scorecard-bubble-wrapper").hide();
   		         $(".mc-scorecard-bubble-wrapper", $(this)).show();
   		         
@@ -413,7 +423,7 @@ class HAScoreMembers{
                
                $.ajax({
                   type: 'GET',
-                   url: 'http://heritageactionscorecard.com/api/scorecard/members/congress/113/id/'+mcid+'/format/jsonp/apikey/<?php echo $hascore_member_options["scorecard_api_key"]; ?>',
+                   url: 'http://heritageactionscorecard.com/api/scorecard/members/congress/113/id/'+mcid+'/format/jsonp/apikey/<?php echo $hascore_member_options["scorecard_api_key"]; ?>?v=api_1_2',
                    async: true,
                    contentType: "application/json",
                    dataType: 'jsonp',
@@ -428,10 +438,12 @@ class HAScoreMembers{
                      if(items[0].is_speaker != 1){
                        $('.score-bubble-member-score', $(".mc-"+mcid)).html(items[0].score + "%");
                        $('.score-bubble-score-value', $(".mc-"+mcid)).html(items[0].score + "%");
+                       $('.score-bubble-party-chamber-score', $(".mc-"+mcid)).html(items[0].chamber_average + "%");
                      }
                      else{
                        $('.score-bubble-member-score', $(".mc-"+mcid)).html("N/A");
                        $('.score-bubble-score-value', $(".mc-"+mcid)).html("N/A");
+                       $('.score-bubble-party-chamber-score', $(".mc-"+mcid)).html(items[0].chamber_average + "%");
                      }
                      
                      
@@ -457,7 +469,7 @@ class HAScoreMembers{
   		        } 
   		      })
 		      
-  		    })
+  
         })
       })(jQuery);
     </script> 
@@ -529,7 +541,8 @@ class HAScoreMembers{
   public static function getMemberData(){
     $output = false;
     $hascore_member_options = get_option( 'hascore_member_options' );
-    $members_data = wp_remote_get( 'http://heritageactionscorecard.com/api/scorecard/members/congress/113/format/json/apikey/'. $hascore_member_options["scorecard_api_key"] .'/', array( 'timeout' => 120, 'httpversion' => '1.1' ) );
+    $member_api_url = 'http://heritageactionscorecard.com/api/scorecard/members/congress/113/format/json/apikey/'. $hascore_member_options["scorecard_api_key"] .'/?v=api_1_2';
+    $members_data = wp_remote_get( $member_api_url, array( 'timeout' => 120, 'httpversion' => '1.1' ) );
     if($members_data){
       $body = $members_data['body'];
       if(json_decode($body)){
@@ -744,6 +757,17 @@ class HAScoreMembers{
      $scorecard_member_data = $member;
      $member_image = str_replace('http://www.govtrack.us/data/photos/','',$scorecard_member_data->image_path);
      $score_value = ($scorecard_member_data->is_speaker == '1') ? 'N/A' : $scorecard_member_data->score .'%';
+     $party_chamber_score_value = ($scorecard_member_data->chamber_average) ? $scorecard_member_data->chamber_average : false;
+     switch($scorecard_member_data->party){
+       case "R":
+        $full_party_name = 'Republican';
+       break;
+       case "D":
+        $full_party_name = 'Democrat';
+       break;
+       default:
+        $full_party_name = 'Independent';
+     }
      
      $output = "<span class='mc-bubble-wrap mc-$mcid' data-mcid='$mcid' data-score='$scorecard_member_data->score'>" . 
                  $title . $name .   
@@ -762,7 +786,9 @@ class HAScoreMembers{
                            '</span>'.
                            '<span class="score-bubble-info">'.
                              '<span class="score-bubble-member-name">'.$title.' '.$scorecard_member_data->fName.' '.$scorecard_member_data->lName.'</span>'.
-                              '<span class="score-bubble-member-score"><img src="'.HASCORE_MEMBER_URL.'/images/loading.gif" alt="'.$score_value.'"></span>'.                            
+                              '<span class="score-bubble-member-score"><img src="'.HASCORE_MEMBER_URL.'/images/loading.gif" alt="'.$score_value.'"></span>'.
+                              '<span class="score-bubble-party-chamber">'.ucwords($scorecard_member_data->chamber).' '. $full_party_name .' Average</span>'.
+                              '<span class="score-bubble-party-chamber-score"><img src="'.HASCORE_MEMBER_URL.'/images/loading.gif" alt="'.$party_chamber_score_value.'"></span>'.
                            '</span>'.
                            '<span class="score-bubble-separator"></span>'.
                        '</span>'.
