@@ -401,79 +401,86 @@ class HAScoreMembers{
       /* End Custom CSS */
     </style>
     <script type="text/javascript">
+    function render_heritageaction_scorecard_boxes(){
+      
       (function($){
         $(document).ready(function(){
           
           $("body").click(function(e){
             $(".mc-scorecard-bubble-wrapper").hide();
           })
-                    
-        
-		      
-		        $(".mc-scorecard-bubble-wrapper").on('mouseleave',function(event){
-  		        $(this).hide();
-  		      })
-  		      $(".mc-bubble-wrap").mouseenter(function(){
-  		         $(".mc-scorecard-bubble-wrapper").hide();
-  		         $(".mc-scorecard-bubble-wrapper", $(this)).show();
-  		         
-  		         var mcid = $(this).attr('data-mcid');
-               
-              if(!$(this).hasClass('mc-bubble-loaded')){
-   		          //console.log('loading bubble for:' + mcid);	        
-               
-               $.ajax({
-                  type: 'GET',
-                   url: 'http://heritageactionscorecard.com/api/scorecard/members/congress/113/id/'+mcid+'/format/jsonp/apikey/<?php echo $hascore_member_options["scorecard_api_key"]; ?>?v=api_1_2',
-                   async: true,
-                   contentType: "application/json",
-                   dataType: 'jsonp',
-                   tryCount : 0,
-                   retryLimit : 3,
-                   success: function(data) {
-                     var items = [];
-                     $.each(data, function(key, val) {
-                         items.push(val);
-                     });
-                     //console.log(items[0]);
-                     if(items[0].is_speaker != 1){
-                      $('.score-bubble-member-score', $(".mc-"+mcid)).html(items[0].score + "%");
-                      $('.score-bubble-score-value', $(".mc-"+mcid)).html(items[0].score + "%");
-                      $('.score-bubble-party-chamber-score', $(".mc-"+mcid)).html(items[0].party_average + "%");
-                     }
-                     else{
-                      $('.score-bubble-member-score', $(".mc-"+mcid)).html("N/A");
-                      $('.score-bubble-score-value', $(".mc-"+mcid)).html("N/A");
-                      $('.score-bubble-party-chamber-score', $(".mc-"+mcid)).html(items[0].party_average + "%");
-                     }
-                     
-                     
-                     $(".mc-"+mcid).addClass('mc-bubble-loaded');
-                     
-  		              },
-                    error : function(xhr, textStatus, errorThrown ) {
-                       this.tryCount++;
-                       if (this.tryCount <= this.retryLimit) {
-                           //try again
-                           $.ajax(this);
-                           return;
-                       }            
-                       return;
-                       if (xhr.status == 500) {
-                           //handle error
-                       } else {
-                           //handle error
-                       }
+     
+          $(".mc-scorecard-bubble-wrapper").on('mouseleave',function(){
+  	        $(this).hide();
+  	      })
+  	      $(".mc-bubble-wrap").on('mouseenter',function(){
+  	         $(".mc-scorecard-bubble-wrapper").hide();
+  	         $(".mc-scorecard-bubble-wrapper", $(this)).show();
+	         
+  	         var mcid = $(this).attr('data-mcid');
+           
+            if(!$(this).hasClass('mc-bubble-loaded')){
+  		          //console.log('loading bubble for:' + mcid);	        
+           
+             $.ajax({
+                type: 'GET',
+                 url: 'http://heritageactionscorecard.com/api/scorecard/members/congress/113/id/'+mcid+'/format/jsonp/apikey/<?php echo $hascore_member_options["scorecard_api_key"]; ?>?v=api_1_2',
+                 async: true,
+                 contentType: "application/json",
+                 dataType: 'jsonp',
+                 tryCount : 0,
+                 retryLimit : 3,
+                 success: function(data) {
+                   var items = [];
+                   $.each(data, function(key, val) {
+                       items.push(val);
+                   });
+                   //console.log(items[0]);
+                   if(items[0].is_speaker != 1){
+                     $('.score-bubble-member-score', $(".mc-"+mcid)).html(items[0].score + "%");
+                     $('.score-bubble-score-value', $(".mc-"+mcid)).html(items[0].score + "%");
+                     $('.score-bubble-party-chamber-score', $(".mc-"+mcid)).html(items[0].party_average + "%");
                    }
-               })		        		        
-     		     
-  		        } 
-  		      })
-		      
+                   else{
+                     $('.score-bubble-member-score', $(".mc-"+mcid)).html("N/A");
+                     $('.score-bubble-score-value', $(".mc-"+mcid)).html("N/A");
+                     $('.score-bubble-party-chamber-score', $(".mc-"+mcid)).html(items[0].party_average + "%");
+                   }
+                 
+                 
+                   $(".mc-"+mcid).addClass('mc-bubble-loaded');
+                 
+  	              },
+                  error : function(xhr, textStatus, errorThrown ) {
+                     this.tryCount++;
+                     if (this.tryCount <= this.retryLimit) {
+                         //try again
+                         $.ajax(this);
+                         return;
+                     }            
+                     return;
+                     if (xhr.status == 500) {
+                         //handle error
+                     } else {
+                         //handle error
+                     }
+                 }
+             })		        		        
+ 		     
+  	        } 
+  	      })
+      
   
         })
       })(jQuery);
-    </script> 
+    }
+    
+    (function($){
+      $(document).ready(function(){
+          render_heritageaction_scorecard_boxes();
+      })
+    })(jQuery);  
+    </script>
     
     <?php
     
