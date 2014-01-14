@@ -54,6 +54,10 @@ We are not able to provide anything other than community based support for Herit
 
 == Changelog ==
 
+= 1.0.4 =
+* Fixed hascore_menus error
+* Tested in WordPress 3.8
+
 = 1.0.3 =
 * Added Chamber Party average to bubbles
 * Improved API call efficiency 
