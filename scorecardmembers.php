@@ -3,7 +3,7 @@
 Plugin Name: HeritageAction Scorecard Member Score
 Plugin URI: http://wordpress.org/plugins/heritageaction-score-card-member-scores
 Description: HeritageAction Scorecard Members of Congress
-Version: 1.0.3
+Version: 1.0.4
 Author: Heritage Action for America
 Author URI: http://heritageaction.com
 
@@ -14,10 +14,7 @@ define("WPCURL", HAScoreMembers::getWpContentUrl());
 define("WPURL", HAScoreMembers::getWpUrl());
 define("HASCORE_MEMBER_URL", WPCURL . '/plugins/heritageaction-score-card-member-scores');
 
-
 add_action('init',  'hascore_init');
-add_action("admin_menu", "hascore_menus");
-
 
 function hascore_init(){
   
