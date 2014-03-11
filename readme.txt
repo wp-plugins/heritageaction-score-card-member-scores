@@ -4,7 +4,7 @@ Donate link: https://heritageaction.com/donate
 Tags: heritage action, politics, congress
 Requires at least: 3.0
 Tested up to: 3.8
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,12 @@ We are not able to provide anything other than community based support for Herit
 4. HeritageAction Scorecard badge on live content
 
 == Changelog ==
+
+= 1.0.5 =
+* Catch failed API call *
+
+= 1.0.4 =
+* Bug fixes *
 
 = 1.0.3 =
 * Added Chamber Party average to bubbles
