@@ -548,6 +548,9 @@ class HAScoreMembers{
     $hascore_member_options = get_option( 'hascore_member_options' );
     $member_api_url = 'http://heritageactionscorecard.com/api/scorecard/members/congress/113/format/json/apikey/'. $hascore_member_options["scorecard_api_key"] .'/?v=api_1_2';
     $members_data = wp_remote_get( $member_api_url, array( 'timeout' => 120, 'httpversion' => '1.1' ) );
+    if(is_wp_error($members_data)){
+      return "Could not reach API server.";
+    }
     if($members_data){
       $body = $members_data['body'];
       if(json_decode($body)){
