@@ -3,7 +3,7 @@ Contributors: heritageaction,
 Donate link: https://heritageaction.com/donate
 Tags: heritage action, politics, congress
 Requires at least: 3.0
-Tested up to: 3.8
+Tested up to: 3.9.1
 Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -53,6 +53,9 @@ We are not able to provide anything other than community based support for Herit
 4. HeritageAction Scorecard badge on live content
 
 == Changelog ==
+
+= 1.0.6 =
+* Increase z-index for autocomplete results for WordPress 3.9.1 compatibility *
 
 = 1.0.5 =
 * Catch failed API call *
