@@ -55,13 +55,13 @@ We are not able to provide anything other than community based support for Herit
 == Changelog ==
 
 = 1.0.6 =
-* Increase z-index for autocomplete results for WordPress 3.9.1 compatibility *
+* Increase z-index for autocomplete results for WordPress 3.9.1 compatibility 
 
 = 1.0.5 =
-* Catch failed API call *
+* Catch failed API calls
 
 = 1.0.4 =
-* Bug fixes *
+* Bug fixes
 
 = 1.0.3 =
 * Added Chamber Party average to bubbles
