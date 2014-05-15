@@ -3,7 +3,7 @@
 Plugin Name: HeritageAction Scorecard Member Score
 Plugin URI: http://wordpress.org/plugins/heritageaction-score-card-member-scores
 Description: HeritageAction Scorecard Members of Congress
-Version: 1.0.5
+Version: 1.0.6
 Author: Heritage Action for America
 Author URI: http://heritageaction.com
 
@@ -646,6 +646,7 @@ class HAScoreMembers{
               })
 
               autoc = $('#member-autocomplete').autocomplete({
+                  zIndex: 999999,
                   lookup: members_of_congress,
                   onSelect: function (suggestion) {
                       memberdata = suggestion.data.split("|");                          
